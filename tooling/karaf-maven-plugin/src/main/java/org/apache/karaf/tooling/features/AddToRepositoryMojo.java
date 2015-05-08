@@ -70,7 +70,7 @@ public class AddToRepositoryMojo extends AbstractFeatureMojo {
 
     private void copyBundlesToDestRepository(List<? extends Bundle> artifactRefs) throws MojoExecutionException {
         for (Bundle artifactRef : artifactRefs) {
-            Artifact artifact = resourceToArtifact(artifactRef.getLocation(), skipNonMavenProtocols);
+            Artifact artifact = resourceToArtifact(artifactRef.getLocation().replaceAll("\\r\\n|\\r|\\n", " ").trim(), skipNonMavenProtocols);
             if (artifact != null) {
                 copy(artifact, repository);
             }
